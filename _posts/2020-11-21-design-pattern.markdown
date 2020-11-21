@@ -37,7 +37,7 @@ Pattern không phải là những thuật toán, thư viện được dựng s�
 Giả sử, bạn đang phát triển một ứng dụng trò chơi giả lập làm một con vịt, trong đó, người chơi có thể chọn một loài vịt bất kì để thử các hành động khác nhau của một con vịt như kêu 'quack, quack', hay vỗ cánh. Bạn nhanh chóng thiết kế cho ứng dụng của mình gồm các lớp mô tả các hành động của con vịt
 
 {% highlight raw %}
-![Funnny duck application][/image/duck-pattern.png]
+![Funnny duck application][/assets/image/duck-pattern.png]
 <figcaption class="caption">Funny duck application</figcaption>
 {% endhighlight %}
 
