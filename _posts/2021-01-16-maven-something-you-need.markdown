@@ -45,6 +45,7 @@ File pom.xml trên chứa một số thông tin cơ bản của project.
 - groupId: thông tin định danh duy nhất cho công ty hay project của bạn, thường ứng với trên thư mục gốc của project, như trong ví dụ thì đường dẫn thư mục gốc sẽ là ./com/dev/diary
 - artifactId: tên của project mà bạn tạo, như tên project trong ví dụ là Java web crawler thì artifactId tương ứng là java-web-crawler. artifactId cũng được sử dụng để đặt tên cho thư mục con chứa code bên trong thư mục được tạo bởi groupId. Ví dụ thư mục chứa code ứng với file pom trên sẽ là src/main/java/com/dev/diary/java-web-crawler/..
 - versionId: là version của project, ví dụ khi project được update theo các version 1.0.0, 1.0.1,...
+
 # Running Maven
 Maven sẽ thực hiện các lệnh từ terminal hay còn gọi là các phase.  Một số lệnh cơ bản của maven thường được sử dụng như:
 ```commandline
@@ -59,6 +60,7 @@ Nếu trước đây bạn đã từng build project và tạo xong một file J
 mvn dependency:copy-dependencies
 ```
 Bạn cũng có thể thực hiện build từng phần nhỏ trong mỗi phase bằng cách thêm dấu ":" vào giữa phase và bước con trong phase đó (hay còn gọi là goal). Trong lệnh ví dụ ở trên, ta đã thực hiện copy các dependencies trong phase dependency
+
 # Maven Directory Structure
 Maven cũng cung cấp cho chúng ta một cấu trúc thư mục chuẩn của trong một project. Như đã nói ở trên, nếu bạn tạo một project theo đúng cấu trúc này (các IDLE java đã hỗ trợ chúng ta việc này) thì bạn không cần phần cấu hình cụ thể cấu trúc thư mục bên trong file pom nữa mà maven sẽ dựa theo cấu trúc chuẩn này để build project.
 
