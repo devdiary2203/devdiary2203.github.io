@@ -77,7 +77,7 @@ Cách phân loại ở trên có vẻ khá chung, gây khó khăn cho những ng
 
 ## Tổng kết
 
-Trong bài viết này mình đã tóm tắt qua một số khái niệm liên quan đến design pattern. Nếu bạn từng gặp rắc rối khi ứng dụng có thêm những yêu cầu mới từ khách hàng, hay việc chưa có kinh nghiệm dẫn đến đống code ngày càng trở nên lộn xộn và khó maintain thì design pattern có thể là thứ bạn đang cần. Các bài viết sau mình sẽ viết chi tiết về từng loại pattern và một pattern tiêu biểu cho từng loại.
+Trong bài viết này mình đã tóm tắt qua một số khái niệm liên quan đến design pattern. Nếu bạn từng gặp rắc rối khi ứng dụng có thêm những yêu cầu mới từ khách hàng, hay việc chưa có kinh nghiệm dẫn đến đống code ngày càng trở nên lộn xộn và khó maintain thì design pattern có thể là thứ bạn đang cần. Các bài viết sau mình sẽ viết chi tiết về từng loại pattern và một số pattern tiêu biểu cho từng loại.
 
 HN, 21/11/2020, miss you !
 
