@@ -11,7 +11,7 @@ author: me
 description: me
 ---
 
-Một ngày bình thường như mọi ngày :))
+> Một ngày bình thường như mọi ngày :))
 
 Series tự hỏi tự trả lời
 
