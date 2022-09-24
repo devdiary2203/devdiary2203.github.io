@@ -12,56 +12,50 @@ author: devdiary
 description: Sorting and Searching
 ---
 
-## Summary
+## Introduction
 
 Các thuật toán sắp xếp
 
-### Brute force
+# Selection sort
+Thuật toán chia mảng đầu vào thành 2 phần:
+- Mảng chứa các phần tử đã được sắp xếp gọi là sorted sublist
+- Mảng chứa các phần tử chưa được sắp xếp trong mảng đầu vào gọi là unsorted sublist
 
-Thuật toán vét cạn
-Thuật toán tìm kiếm bằng cách thử tất cả các lựa chọn có thể xảy ra.
-Ví dụ có một mảng các số nguyên, chúng ta muốn tìm giá trị nhỏ nhất, lớn nhất trong mảng, brute force sẽ duyệt qua tất cả các phần tử để tìm lời giải.
-Ưu điểm của thuật toán này là đảm bảo luôn tìm ra được lời giải, tuy nhiên cách này là lâu nhất vì vậy khi sử dụng thuật toán này cần tôi ưu lời giải sao cho hiệu quả nhất. Linear search tìm kiếm giá trị bằng kiểm tra lần lượt từng phần tử trong mảng cho đến khi tìm được phần tử bằng giá trị cho trước, có độ phức tạp O(n).
+Ban đầu, sorted sublist rỗng, unsorted sublist chứa toàn bộ mảng đầu vào. Thuật toán tìm phần tử lớn nhất (nhỏ nhất tùy theo yêu cầu bài toán) thêm vào mảng sorted hoặc đổi chỗ với phần từ tận cùng bên trái của mảng sorted, tùy theo cách làm. Sau đó lưu vị trí đánh dấu bắt đầu từ unsorted sublist tăng lên 1 đơn vị về bên phải (vì phần từ được sắp xếp ta thêm dần vào bên trái nhất). Độ phức tạp O(n^2) vì phải duyệt qua toàn bộ phần tử của mảng và duyệt qua mảng con để tìm phần tử lớn nhất hoặc nhỏ nhất, thuật toán này không áp dụng trong thực tế do độ phức tạp quá lớn.
 
-### Greedy algorithms
+# Bubble sort (sinking sort)
+Thuật toán sắp xếp các cặp phần tử và đổi chỗ nếu 2 phần tử đặt sai chỗ. Việc so sánh lặp lại cho đến khi mảng được sắp xếp. Độ phức tạp tính toán cũng là O(n^2) do duyệt qua toàn bộ phần tử và duyệt qua các phần tử từ một phần tử mốc.
 
-Greedy là mô hình thuật toán tìm bằng các xây dựng từng phần lời giải. Lời giải tiếp theo được chọn sao cho lời giải đó là rõ ràng và có lợi ích tốt nhất tại thời điểm đó. Các lời giải này là tối ưu cục bộ, do đó thuật toán này được tạo ra với hi vọng sẽ tìm được lời giải tối ưu toàn cục dựa vào lời giải tối ưu cục bộ. Thuật toán tham lam phải thỏa mãn các thuộc tính:
+# Insertion sort
+Thuật toán sắp xếp theo logic tự nhiên. Lặp lại qua một mảng, chọn vị trí đúng cho mỗi phần tử và chèn phần tử vào đúng vị trí. Độ phức tạp tính toán là O(n^2) trong trường hợp phải đảo ngược lại toàn bộ mảng. Best-case của thuật toán là omega(n) khi các phần tử đã nằm đúng vị trí.
 
-- Greedy choice property: một lời giải toàn cục có thể chọn được từ một điểm tối ưu cục bộ.
-- Optimal substructure: một lời giải tối ưu cho vấn đề chứa một lời giải tối ưu cho các vấn đề con.
+*Space complexity của các thuật toán này là O(1) do thay đổi vị trí tại chỗ*
 
-Greedy algorithms thực hiện đệ quy từng phần để giải các vấn đề con.
+# Merge sort
+Thuật toán sắp xếp divide and conquer bằng cách chia mảng thành 2 nửa, sắp xếp mỗi nửa và merge lại với nhau. Trường hợp atomic (base case) của divide and conquer lúc này là mỗi mảng con có kích thước bằng 1. Phần xử lý phức tạp nhất dễ thấy nằm ở việc merge 2 mảng con lại với nhau. Merge sort gọi đệ quy trên mỗi nửa mảng được chia. RightIndex và LeftIndex tạm gọi là chỉ số của đầu tiên và cuối cùng của nửa mảng phải và trái. Trường hợp atomic đạt được khi phần tử [rightIndex] <= phần tử [leftIndex] thì dừng lại. Sau đó, hàm merge được gọi để merge 2 nửa mảng với nhau.
 
-Ưu điểm: giải quyết từng vấn đề con, dễ hiểu, logic
+*Độ phức tạp tính toán là O(nlogn)*
 
-Nhược điểm: It is entirely possible that the most optimal short-term solutions may lead to the worse posible long-term outcome
+# Quick sort
+Quick sort là thuật toán nhanh nhất so với các thuật toán sắp xếp khác trong trường hợp cơ bản. Merge sort hoạt động tốt hơn trên linked list. Các thuật toán sắp xếp không dựa trên so sánh hoạt động tốt hơn quick sort
 
-### Divide and Conquer
+Các bước thực hiện:
+- input mảng n phần tử
+- chọn phần tử pivot trong mảng để sắp xếp
+- chia mảng thành 2 mảng con, ta đặt giả sử rằng tất cả phần tử trong một mảng con nhỏ hơn phần tử pivot và tất cả phần tử trong mảng con còn lại lớn hơn phần tử pivot
+- các phần tử bằng phần tử pivot có thể nằm ở một trong 2 mảng con đã sắp xếp
+- sắp xếp 2 mảng con đệ quy để dẫn đến 2 mảng đã được sắp xếp
+- nối 2 mảng con đã sắp xếp và phần tử pivot để được kết quả cuối cùng
 
-Mô hình thuật toán này chia vấn đề thành các bài toán con cho đến khi các bài toán con là duy nhất và giống nhau, không thể chia thêm được nữa
+Các trường hợp chọn phần tử pivot:
+- Nếu chọn pivot là phần tử nhỏ nhất, mảng con bên trái sẽ luôn trống, tất cả phần tử sẽ nằm bên phải. Thời gian chia mảng thành 2 mảng con là O(n) lần. Tổng thời gian tính toán là O(n^2), đây là thời gian tính toán trường hợp xấu nhất của quick sort vì khi chia mảng n lần theo pivotvà mỗi lần chia thì duyệt mảng n lần để swap các vị trí giữa 2 mảng với nhau.
 
-Bắt đầu giải quyết các bài toán nhỏ này và tổng hợp lời giải với nhau.
+Cách chọn pivot:
+- Chọn ngẫu nhiên: pivot có thể chọn ngẫu nhiên pivot, các chọn này được chứng minh là có thể mang lại hiệu quả tốt
+- Median of three: chọn 3 phần tử ngẫu nhiên của mảng để tìm giá trị trung bình của chúng, cách này đảm bảo không chọn phải phần tử nhỏ nhất hoặc lớn nhất của mảng.
 
-Cách tiếp cận này sử dụng đệ quy do đó có thể chậm.
+Độ phức tạp tính toán xấu nhất là O(n^2), trung bình độ phức tạp tính toán là O(nlogn) với giả sử phân phối các phần tử đồng đều và chọn ngẫu nhiên pivot. Trường hợp tốt nhất thì độ phức tạp là O(logn).
 
-Thuật toán này gồm 3 bước:
-
-- Devide
-- Conquer
-- Merge
-
-### Dynamic programming
-
-Dynamic programming giải quyết các vấn đề bằng các tổng hợp các lời giải con giống như divide conquer.
-
-"Those who cannot remember the past are condemned to repeat it"
-
-#### Characteristics
-
-- Overlapping subproblems: các bài toán nhỏ của bài toán lớn không độc lập, 2 vấn đề con cùng chia sẻ giải quyết một vấn đề
-- Optimal substructure property: Lời giải tối ưu toàn cục của vấn đề có thể xây dựng từ một lời giải của vấn đề con.
-
-#### Dynamic programming patterns
-
-- Top down: hướng giải quyết top down hay memoization tương tự với đệ quy, tuy nhiên cải tiến hơn ở chỗ top down sẽ tìm kiếm lời giải trong một bảng tra cứu trước khi tìm lời giải cho chính nó
-- Bottom up: hướng giải quyết tabulation hay bottom up ngược lại so với top-down và tránh sử dụng đệ quy. Cách giải quyết này sẽ điền kết quả vào một bảng tìm kiếm và tính toán lời giải dựa vào kết quả trong bảng
+Quick sort và merge sort:
+- Quick sort merge dễ hơn, nhưng chia khó 
+- Merge sort merge phức tạp hơn nhưng chia dễ hơn so với quick sort
