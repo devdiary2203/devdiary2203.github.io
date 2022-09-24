@@ -9,7 +9,7 @@ tag:
 - software engineer
 category: blog
 author: devdiary
-description: Builder pattern
+description: Builder Pattern
 ---
 
 # Introduction
@@ -147,3 +147,5 @@ query_builder.select_builder("catName, catColor")\
 Trong trường bạn câu lệnh của bạn không có mệnh đề *where* hay *groupby* thì bạn chỉ cần bỏ qua hoặc truyền vào giá trị *None* hoặc string rỗng ```""``` thì method *builder_select* sẽ bỏ qua mệnh đề này. Ngoài ra bạn có thể tự viết thêm các method để build những câu query khác như ```build_update()```, ```build_insert()```, ```build_delete()```
 
 Bây giờ, khi sử dụng builder pattern để tạo ra một câu truy vấn sql sẽ chỉ cần viết ra một file riêng và import vào bất kì notebooks nào khác mà bạn muốn sử dụng. Code sẽ trở nên dễ đọc, trực quan hơn, và dễ debug khi câu lệnh sql có lỗi cú pháp (syntax).
+
+Thanks!
