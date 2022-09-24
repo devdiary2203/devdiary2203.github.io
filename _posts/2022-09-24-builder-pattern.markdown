@@ -1,7 +1,7 @@
 ---
 title: "Builder pattern"
 layout: post
-date: 2022-09-24 07:12
+date: 2022-09-24 06:42
 image: /assets/images/markdown.jpg
 headerImage: false
 tag:
@@ -13,7 +13,7 @@ description: Builder Pattern
 ---
 
 # Introduction
-Code của bạn bằng một cách nào đó cần phải có tính linh hoạt, dễ bảo trì sau này, có khả năng tái sử dụng. Đó là khi design pattern cần được sử dụng đến. Lợi tích của design pattern:
+Code của bạn bằng một cách nào đó cần phải có tính linh hoạt, dễ bảo trì sau này, có khả năng tái sử dụng. Đó là khi design pattern cần được sử dụng đến. Lợi ích của design pattern:
 - Giảm thời gian đọc hiểu khi sử dụng code: Khi ta code khoa học, có tổ chức, người khác hoặc chính chúng ta nhìn vào có thể hiểu được đoạn code này làm gì, sử dụng thế nào trong chương trình.
 - Giảm thời gian fix bug
 - Khả năng kiếm thử code tốt hơn
