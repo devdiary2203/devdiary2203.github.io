@@ -1,7 +1,7 @@
 ---
-title: "Builder pattern"
+title: "Builder pattern for you"
 layout: post
-date: 2022-09-24 06:42
+date: 2022-09-23 22:42
 image: /assets/images/markdown.jpg
 headerImage: false
 tag:
