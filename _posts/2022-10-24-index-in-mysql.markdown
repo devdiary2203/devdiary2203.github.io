@@ -1,7 +1,7 @@
 ---
 title: "Index in MySQL"
 layout: post
-date: 2022-10-22 22:03
+date: 2022-10-26 22:03
 image: /assets/images/me.jpeg
 headerImage: false
 tag:
