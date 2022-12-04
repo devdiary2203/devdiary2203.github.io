@@ -104,33 +104,33 @@ folds = {fold: dict() for fold in range(n_folds)}
 
 # Huấn luyện modle
 for fold, (ix_train, ix_test) in enumerate(KFold(n_splits=n_folds).split(X=X)):
-  folds[fold]["ix_test"] = ix_test
-  folds[fold]["model"] = LGBMRegressor().fit(
-    X=X.loc[ix_train, :], 
-    y=y.loc[ix_train]
-  )
+    folds[fold]["ix_test"] = ix_test
+    folds[fold]["model"] = LGBMRegressor().fit(
+        X=X.loc[ix_train, :], 
+        y=y.loc[ix_train]
+    )
 ```
 
 Sau khi đã huấn luyện xong các model, ta sẽ sửa lại dữ liệu tương ứng với 2 kịch bản:
 - Tất cả user tham gia chiến dịch A
 - Tất cả user không tham gia chiến dịch A
 ```python
-
 # Sửa dữ liệu tương ứng với 2 kịch bản
-X_zeros = X.replace({"campaign_A": {1: 0}}) # universe A: nobody joins campaign A
-X_ones = X.replace({"campaign_A": {0: 1}}) # universe B: everybody joins campaign A
+# universe A: nobody joins campaign A
+X_zeros = X.replace({"campaign_A": {1: 0}})
+# universe B: everybody joins campaign A
+X_ones = X.replace({"campaign_A": {0: 1}})
 
 pred_zeros = pd.Series(index = X.index)
 pred_ones = pd.Series(index = X.index)
 
 # Dự đoán target mỗi kịch bản với các model đã huấn luyện ở mỗi fold
 for fold in folds.keys():
+    ix_test = folds[fold]["ix_test"]
+    model = folds[fold]["model"]
   
-  ix_test = folds[fold]["ix_test"]
-  model = folds[fold]["model"]
-  
-  pred_zeros.loc[ix_test] = model.predict(X_zeros.loc[ix_test, :])
-  pred_ones.loc[ix_test] = model.predict(X_ones.loc[ix_test, :])
+    pred_zeros.loc[ix_test] = model.predict(X_zeros.loc[ix_test, :])
+    pred_ones.loc[ix_test] = model.predict(X_ones.loc[ix_test, :])
 ```
 
 Kết quả thu được:
@@ -140,9 +140,7 @@ Kết quả thu được:
 Bây giờ ta so sánh kết quả thử nghiệm 2 kịch bản:
 
 ```python
-
 outcomes = (pred_ones - pred_zeros).mean()
-
 ```
 
 Ví dụ trên chỉ là một bài toán giả định nhỏ để minh họa cách áp dụng causal ml trong việc đánh giá các thử nghiệm. Outcome ở đây có thể được định nghĩa bằng các giá trị nhị phân (đại diện cho các hành động khác nhau như mua hay không mua, click hay không click,...). Ngoài ra trong các trường hợp xây dựng lại dataset cho phù hợp với mỗi kịch bản cần sử dụng phân phối xác suất cho phù hợp với thực tế.
