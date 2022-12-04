@@ -117,8 +117,8 @@ Sau khi đã huấn luyện xong các model, ta sẽ sửa lại dữ liệu tư
 ```python
 """
     Sửa dữ liệu tương ứng với 2 kịch bản
-        universe A: nobody joins campaign A
-        universe B: everybody joins campaign A
+    - universe A: nobody joins campaign A
+    - universe B: everybody joins campaign A
 """
 X_zeros = X.replace({"campaign_A": {1: 0}})
 X_ones = X.replace({"campaign_A": {0: 1}})
