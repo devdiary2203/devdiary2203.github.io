@@ -45,9 +45,11 @@ Hình trên mô tả sơ đồ hoạt động của một quy trình đánh giá
 Ta sử dụng dataset mẫu có dạng như sau:
 ![Dataset](/assets/images/dataset-mau.png)
 
-Bảng **User** chứa các đặc điểm của user (covariates). Bảng **Campaign** chứa thông tin của các chiến dịch thử nghiệm dành cho từng user (treatments). Bảng **Purchase** lưu các thông tin về kết quả thu được (outcomes).
+- Bảng **User** chứa các đặc điểm của user (covariates)
+- Bảng **Campaign** chứa thông tin của các chiến dịch thử nghiệm dành cho từng user (treatments)
+- Bảng **Purchase** lưu các thông tin về kết quả thu được (outcomes)
 
-Toàn bộ quá trình thử nghiệm được minh hoạt như sau:
+Toàn bộ quá trình thử nghiệm được minh hoạ lại theo sơ đồ dưới đây:
 ![Campaign](/assets/images/campaign.png)
 
 Hãy nhìn vào Alice. User này nằm trong 2 chiến dịch: A (ngày 15/9) và B (ngày 4/10). Alice đã thanh toán tổng cộng 75$ vào ngày 18/10. Nhìn vào dữ liệu này có một số câu hỏi cần trả lời:
@@ -66,7 +68,7 @@ Với giả sử rằng, các hành động *action* là nguyên nhân gây ra *
 
 ![Chọn cutoff point linh hoạt - 1](/assets/images/cutoff-two.png)
 
-Bây giờ ta tổng hợp và chia dữ liệu thành 2 tập X và Y như sau:
+Bây giờ ta tổng hợp và chia dữ liệu thành 2 tập X và Y:
 ![Tổng hợp dataset](/assets/images/dataset-processed.png)
 
 Đến đây, chắc nhiều người sẽ hình dung ra việc sử dụng causal machine learning như thế nào. Tập X (features) gồm 2 phần: covariates (các đặc điểm của user) và treatments (user tham gia vào chiến dịch nào). Tập Y (target) là kết quả thu được. Sau khi xử lý lại dataset, bài toán sẽ được quy về việc áp dụng thuật toán machine learning vào để dự đoán. Ưu điểm của cách làm này so với việc sử dụng A/B testing đó là các model machine learning có thể học được mối quan hệ giữa treatment và covariate. Trong dataset này, model sẽ học được ảnh hưởng giữa các đặc điểm của user đến từng chiến dịch. A/B testing chỉ cung cấp đánh giá tương quan giữa treatment và target thử nghiệm.
