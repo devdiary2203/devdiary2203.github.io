@@ -138,6 +138,7 @@ Kết quả thu được:
 - **pred_zeros**: Hiệu quả khi tất cả user không tham gia chiến dịch A
 
 Bây giờ ta so sánh kết quả thử nghiệm 2 kịch bản:
+
 ```python
 
 outcomes = (pred_ones - pred_zeros).mean()
