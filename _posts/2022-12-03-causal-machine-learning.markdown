@@ -139,7 +139,9 @@ Kết quả thu được:
 
 Bây giờ ta so sánh kết quả thử nghiệm 2 kịch bản:
 ```python
+
 outcomes = (pred_ones - pred_zeros).mean()
+
 ```
 
 Ví dụ trên chỉ là một bài toán giả định nhỏ để minh họa cách áp dụng causal ml trong việc đánh giá các thử nghiệm. Outcome ở đây có thể được định nghĩa bằng các giá trị nhị phân (đại diện cho các hành động khác nhau như mua hay không mua, click hay không click,...). Ngoài ra trong các trường hợp xây dựng lại dataset cho phù hợp với mỗi kịch bản cần sử dụng phân phối xác suất cho phù hợp với thực tế.
