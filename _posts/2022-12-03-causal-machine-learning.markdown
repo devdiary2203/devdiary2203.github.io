@@ -102,7 +102,7 @@ n_folds = 5
 # Lưu trữ model huấn luyện được với mỗi fold
 folds = {fold: dict() for fold in range(n_folds)}
 
-# Huấn luyện modle
+# Huấn luyện model
 for fold, (ix_train, ix_test) in enumerate(KFold(n_splits=n_folds).split(X=X)):
     folds[fold]["ix_test"] = ix_test
     folds[fold]["model"] = LGBMRegressor().fit(
@@ -115,16 +115,20 @@ Sau khi đã huấn luyện xong các model, ta sẽ sửa lại dữ liệu tư
 - Tất cả user tham gia chiến dịch A
 - Tất cả user không tham gia chiến dịch A
 ```python
-# Sửa dữ liệu tương ứng với 2 kịch bản
-# universe A: nobody joins campaign A
+"""
+    Sửa dữ liệu tương ứng với 2 kịch bản
+        universe A: nobody joins campaign A
+        universe B: everybody joins campaign A
+"""
 X_zeros = X.replace({"campaign_A": {1: 0}})
-# universe B: everybody joins campaign A
 X_ones = X.replace({"campaign_A": {0: 1}})
 
 pred_zeros = pd.Series(index = X.index)
 pred_ones = pd.Series(index = X.index)
 
-# Dự đoán target mỗi kịch bản với các model đã huấn luyện ở mỗi fold
+"""
+    Dự đoán target mỗi kịch bản với các model đã huấn luyện ở mỗi fold
+"""
 for fold in folds.keys():
     ix_test = folds[fold]["ix_test"]
     model = folds[fold]["model"]
