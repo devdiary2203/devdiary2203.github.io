@@ -31,4 +31,4 @@ Một vấn đề xảy ra khi consumer message như service đọc message ra n
 
 Ta vẫn có thể xử lý lại đối với các event không gây ra hiệu ứng phụ. Tuy nhiên, đối với các hệ thống thanh toán, nếu event thanh toán trừ tiền bị lặp lại nhiều lần có thể gây hậu quả nghiêm trọng. Để xử lý vấn đề nói trên, ta có thể sử dụng thêm một cơ sở dữ liệu quan hệ như MySQL để lưu lại các message đã được xử lý. Giả sử một message được xử lý rồi sẽ insert vào bảng này. Đối với các message bị lặp lại, ta kiếm tra message đã được xử lý rồi thì sẽ không xử lý lại nữa.
 
-![Xử lý duplicate message](/assets/images/tracking-messaged.png)
+![Xử lý duplicate message](/assets/images/tracking-message.png)
