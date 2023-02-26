@@ -27,22 +27,22 @@ Kĩ thuật thứ 2 mà kafka áp dụng là zero copy principle. Đầu tiên t
 
 ![Kafka without zero copy principle](/assets/images/kafka-without-zero-copy.png)
 
-1.1. Producer ghi dữ liệu vào ứng dụng
-1.2. Ứng dụng ghi dữ liệu xuống ram
-1.3. OS đồng bộ dữ liệu định kì xuống disk
-2.1. OS load dữ liệu từ disk lên ram theo yêu cầu của ứng dụng
-2.2. Ứng dụng copy dữ liệu từ ram
-2.3. Ứng dụng gửi dữ liệu đến socket
-2.4. Card mạng lấy dữ liệu từ socker để chuẩn bị gửi qua network cho consumer
-2.5. Gửi dữ liệu cho consumer
+- 1.1. Producer ghi dữ liệu vào ứng dụng
+- 1.2. Ứng dụng ghi dữ liệu xuống ram
+- 1.3. OS đồng bộ dữ liệu định kì xuống disk
+- 2.1. OS load dữ liệu từ disk lên ram theo yêu cầu của ứng dụng
+- 2.2. Ứng dụng copy dữ liệu từ ram
+- 2.3. Ứng dụng gửi dữ liệu đến socket
+- 2.4. Card mạng lấy dữ liệu từ socker để chuẩn bị gửi qua network cho consumer
+- 2.5. Gửi dữ liệu cho consumer
 
 Ở luồng xử lý trên ta thấy dữ liệu phải được copy 4 lần từ disk đến khi gửi cho consumer. Mỗi lần copy dữ liệu, CPU chuyển trạng thái, lưu trữ trạng thái của các thread để khôi phục hoặc tiếp tục thực thi những lần tiếp theo (context switch). Việc này làm tăng thời gian xử lý, chuyển dữ liệu trong luồng.
 
 ![Kafka with zero copy principle](/assets/images/kafka-with-zero-copy.png)
 
 Khi áp dụng zero copy principle:
-3.1. OS load dữ liệu từ disk lên ram theo yêu cầu ứng dụng
-3.2. Card mạng copy trực tiếp dữ liệu từ ram để trả cho consumer
-3.3. Gửi dữ liệu cho consumer
+- 3.1. OS load dữ liệu từ disk lên ram theo yêu cầu ứng dụng
+- 3.2. Card mạng copy trực tiếp dữ liệu từ ram để trả cho consumer
+- 3.3. Gửi dữ liệu cho consumer
 
 Như vậy thay vì 4 lần copy dữ liệu, bây giờ chỉ cần thực hiện 2 lần copy dữ liệu, ứng dụng không cần phải lấy dữ liệu từ ram rồi gửi vào socket. ZCP đã tiết kiện được bước copy dữ liệu giữa ứng dụng và kernel, thời gian xử lý theo như bytebytego cung cấp giảm xuống khoảng 65%.
