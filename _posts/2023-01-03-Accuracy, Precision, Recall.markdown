@@ -67,7 +67,5 @@ Vậy làm cách nào để chọn được ngưỡng *decision threshold* này?
 $$ TPR = \dfrac{TP}{TP + FN} $$
 ```
 - False positive rate (FPR): Đánh giá khả năng dự đoán sai của mô hình (dự đoán user click trong khi user sẽ không click)
-```latex
-$$ FPR = \dfrac{FP}{FP + TN} $$
-```
 
+$$FPR = \frac{FP}{FP + TN}$$
