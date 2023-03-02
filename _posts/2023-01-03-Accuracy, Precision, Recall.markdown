@@ -63,7 +63,11 @@ Vậy làm cách nào để chọn được ngưỡng *decision threshold* này?
 # ROC curve
 Đường cong ROC là một đồ thị đánh giá chất lượng của mô hình ở tất cả các ngưỡng phân loại. ROC đánh giá dựa vào 2 giá trị:
 - True positive rate (TPR) - Recall:
+```latex
 $ TPR = \dfrac{TP}{TP + FN} $
+```
 - False positive rate (FPR): Đánh giá khả năng dự đoán sai của mô hình (dự đoán user click trong khi user sẽ không click)
+```latex
 $ FPR = \dfrac{FP}{FP + TN} $
+```
 
