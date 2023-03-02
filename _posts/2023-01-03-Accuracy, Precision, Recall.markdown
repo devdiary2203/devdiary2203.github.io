@@ -37,7 +37,7 @@ Positive, negative ở đây do ta tự quy định để dễ hình dung.
 # Accuracy
 Accuracy là độ đo để đánh giá mô hình phân loại. 
 
-$$ Accuracy = \frac{TP + TN}{TP + TN + FP + FN} $$
+$Accuracy = \dfrac{TP + TN}{TP + TN + FP + FN}$
 
 Nhìn công thức có thể thấy acc càng cao thì mô hình càng có khả năng dự đoán đúng. Vậy tại sao không lấy số kết quả dự đoán chính xác chia cho tổng số dự đoán luôn mà còn phải phân tích TP, TN, FP, FN. Việc phân tích TP, TN sẽ cho thấy khả năng dự đoán của mô hình tốt/xấu theo chiều hướng nào (dự đoán user click tốt hay dự đoán user không click tốt hơn). Từ việc phân tích này, ta có thể thấy một vấn đề với độ đo accuracy đó là khi dữ liệu bị mất cân bằng (số lượng mẫu các lớp lệch nhau) thì kết quả accuracy không phản ảnh hết được chất lượng của mô hình.
 
@@ -50,12 +50,12 @@ Như đối với bài toán recommendation dự đoán khả năng user click v
 
 Precision sẽ đánh giá khả năng mô hình dự đoán đúng user có click vào bài post.
 
-$$ Precision = \frac{TP}{TP + FP} $$
+$ Precision = \dfrac{TP}{TP + FP} $
 
 # Recall
 Recall là một độ đo khác để đánh giá mô hình cùng với accuracy. Ý nghĩa của nó đánh giá xem mô hình dự đoán bị sai lớp positive nhiều không. Trong bài toán user click, ta có thể hiểu là đánh giá những user bị dự đoán là không click nhưng thực tế là họ sẽ click vào bài.
 
-$$ Recall = \frac{TP}{TP + FN} $$
+$ Recall = \dfrac{TP}{TP + FN} $
 
 Dễ thấy 2 giá trị *Precision* và *Recall* càng cao thì mô hình có khả năng dự đoán càng tốt. Giá trị 2 độ đo này sẽ thay đổi khi thay đổi *decision threshold* ở trên. *F1-score* cũng là một độ đo để đánh giá chất lượng mô hình kết hợp cả *precision* và *recall*.
 
@@ -63,7 +63,7 @@ Vậy làm cách nào để chọn được ngưỡng *decision threshold* này?
 # ROC curve
 Đường cong ROC là một đồ thị đánh giá chất lượng của mô hình ở tất cả các ngưỡng phân loại. ROC đánh giá dựa vào 2 giá trị:
 - True positive rate (TPR) - Recall:
-$$ TPR = \frac{TP}{TP + FN} $$
+$ TPR = \dfrac{TP}{TP + FN} $
 - False positive rate (FPR): Đánh giá khả năng dự đoán sai của mô hình (dự đoán user click trong khi user sẽ không click)
-$$ FPR = \frac{FP}{FP + TN} $$
+$ FPR = \dfrac{FP}{FP + TN} $
 
