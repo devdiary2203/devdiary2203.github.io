@@ -1,0 +1,34 @@
+---
+title: "ETL vs ELT"
+layout: post
+date: 2023-02-24 22:03
+image: /assets/images/markdown.jpg
+headerImage: false
+tag:
+- software engineer
+- big data
+- data warehouse
+category: blog
+author: devdiary
+description: Nội dung như title
+---
+
+Data warehouse là nơi tập hợp dữ liệu đã được tổng hợp, phân loại theo yêu cầu để hỗ trợ phân tích, đưa ra quyết định. Trong quá trình tích hợp dữ liệu, có 2 khái niệm thường được nhắc đến là ETL và ELT. Đây đều là các quy trình để mô tả cách xử lý dữ liệu để tích hợp vào data warehouse:
+- ETL (Extract-Transform-Load): Data được trích xuất từ các nguồn dữ liệu (extract), xử lý data thành format có thể dùng để phân tích (transform) và lưu vào data warehouse (load). Quá trình xử lý ở đây bao gồm làm sạch, chuẩn hóa, tổng hợp và làm giàu dữ liệu bằng các tìm kiếm thêm các thông tin mới
+- ELT (Extract-Load-Transform): Data cũng được trích xuất từ các nguồn dữ liệu (extract) sau đó được lưu vào data warehouse (load). Khác biệt ở bước transform, data được xử lý tiếp ở data warehouse bằng các công cụ xử lý data như sql. 
+
+ELT linh hoạt hơn so với ETL khi user có thể thực hiện các phép tổng hợp, truy vấn phức tạp theo từng mục đích từ data warehouse. Đối với ETL dữ liệu đã được xử lý theo các yêu cầu từ trước nên việc mở rộng khai thác thêm thông tin sẽ hạn chế hơn. Ngược lại ETL cũng hiệu quả hơn khi cần tích hợp data từ nhiều nguồn khác nhau vào một data warehouse, để đảm bảo dữ liệu trong data warehouse luôn theo một cấu trúc thống nhất, thuận tiện cho phân tích và đưa ra quyết định.
+
+# Phân biệt ETL và ELT
+- Thứ tự các bước xử lý, tích hợp dữ liệu: E-T-L và E-L-T
+- Mục đích sử dụng:
++ ETL là quy trình tập trung vào việc xử lý dữ liệu từ nguồn data (transform), data phải được xử lý thành một cấu trúc đã được quy định trước khi lưu vào data warehouse.
++ ELT là quy trình phù hợp với các công cụ xử lý mạnh và không gian lưu trữ lớn để xử lý và phân tích dữ liệu từ data warehouse thay vì phải biến đổi dữ liệu thành các cấu trúc cố định phù hợp với các công cụ có sẵn.
+- Độ phức tạp xử lý: ETL đơn giản hơn so với ELT do ETL biến đổi dữ liệu theo các cấu trúc đã được quy định trước, còn ELT dữ liệu thường không có cấu trúc cố định hoặc có cấu trúc nhưng có thể thay đổi do đó quy trình xử lý phức tạp hơn.
+- Chi phí: Đối với các tool xử lý, ETL tốn nhiều chi phí hơn (trả phí) do dữ liệu sẽ chỉ cần truyền vào và được tool xử lý bên trong để ra được một cấu trúc định nghĩa sẵn.
+
+# Tiêu chí lựa chọn ETL hay ELT?
+- Data volume: ETL hiệu quả hơn trong việc xử lý dữ liệu lớn theo từng batch, trong khi đó ELT là quá trình phù hợp hơn với đối với dữ liệu real-time do cần xử lý từng khoảng dữ liệu nhỏ hơn.
+- Data complexity: ETL phù hợp với các dữ liệu có cấu trúc được định nghĩa trước như RDBMS, giúp quá trình tự động đọc và xử lý dễ dàng hơn. ELT phù hợp với các dữ liệu log real-time không có cấu trúc cụ thể hoặc có thể thay đổi, việc xử lý yêu cầu độ phức tạp cao hơn.
+- Data latency: Độ trễ xử lý liên quan đến thời gian cần để có thể xuất ra được dữ liệu phục vụ cho việc phân tích. ETL mất nhiều thời gian hơn bởi vì cần transform trước khi lưu lại kết quả. ELT nhanh hơn về thời gian xử lý vì chỉ cần extract và lưu kết quả, bước transform được thực hiện luôn trên kết quả.
+- Chi phí: Chi phí ETL thường thực hiện trên các tool được xây dựng sẵn, có trả phí trong khi ELT thực hiện dựa vào quá trình E-L có thể tự build và transform trên các công cụ mã nguồn mở như SQL do đó chi phí rẻ hơn và dễ maintain hơn.
