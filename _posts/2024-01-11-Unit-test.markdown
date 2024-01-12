@@ -1,0 +1,146 @@
+---
+title: "Unit test"
+layout: post
+date: 2023-02-24 22:03
+image: /assets/images/markdown.jpg
+headerImage: false
+tag:
+- software engineer
+category: blog
+author: devdiary
+description: Nội dung như title
+---
+
+Kiểm thử là cách kiểm tra chương trình còn bug nào không hoặc tìm ra những điểm hiệu năng kém để tối ưu. Không phải chỉ tester, dev sau khi viết code xong cũng cần biết cách kiểm thử, viết test-case để kiểm soát được các lỗi trong code và tối ưu. Thông thường có 2 cách tiếp cận để testing:
+- Black-box testing: Chuẩn bị input truyền vào và chỉ quan tâm đến output của chương trình, không cần quan tâm đến bên trong code thực hiện như thế nào.
+- White-box testing: Kiểm tra cụ thể cách code hoạt động bên trong, kiến trúc của chương trình.
+
+Để kiểm tra từng phần bên trong mỗi chương trình khi thực hiện white-box testing, có nhiều mức độ thực hiện bao gồm:
+- Unit testing
+- Integration testing
+- System testing
+- Acceptance testing
+
+Ở đây ta sẽ tập trung nói về unit testing. Unit testing sẽ thực hiện kiểm tra từng unit trong chương trình (method, class,...) đã hoạt động đúng yêu cầu hay chưa. Tại sao phải cần unit testing? Trong quá trình code, khi cần phát triển nhanh, dev có thể viết từ đầu đến cuối chương trình sau đó test một vài trường hợp thấy hoạt động đúng là coi như đã hoàn thành. Tuy nhiên có nhiều trường hợp code không thể cover hết các trường hợp có thể xảy ra, khi đó sẽ phát sinh lỗi. Ngoài ra khi code nhanh để release tính năng, nhiều đoạn code có thể bị chậm mà khi chạy trên môi trường product mới phát hiện ra. Đây là khi unit có thể được sử dụng để fix bug hoặc tối ưu một đoạn code nào đó trong chương trình. 
+
+Ngược lại, việc bỏ thời gian viết unit test cũng sẽ tốn thêm thời gian làm chậm quá trình code release sản phẩm. Nhưng việc viết unit test này nhằm đảm bảo giảm thiểu lỗi, có thể kiểm soát được các khả năng thể xảy ra khi chạy chương trình đặc biệt là với các tính năng sau này, dễ maintain và improve hơn.
+
+Để viết unit test hiệu quả, ta có thể tham khảo nguyên tắc sau: https://martinfowler.com/bliki/GivenWhenThen.html trong đó:
+- Given: Tạo các điều kiện cần thiết để có thể test, các đối tượng giả (mock object) để chạy được method, class cần test
+- When: Gọi các method cần kiểm tra
+- Then: Nhận kết quả test và kiểm tra tính đúng đắn của kết quả 
+Sau khi test xong ta cần clean các ảnh hưởng do test gây ra nếu có.
+
+# Unit test with java
+
+Để viết unit test trong java, ta có thể sử dụng framework Junit. Để sử dụng được cần bổ sung thêm thư viện sau vào trong project:
+
+```
+<dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.13.2</version>
+    <scope>test</scope>
+</dependency>
+```
+
+Hiện nay đối với các IDE thì Junit được tích hợp sẵn vào bên trong IDE rồi nên không cần thêm thư viện trên vào nữa.
+
+Ví dụ ta có đoạn code sau:
+```
+public class MathUtil {
+ 
+    private MathUtil() {
+    }
+ 
+    public static int saltKey(int dividend, int divisor) {
+        if (divisor == 0) {
+            throw new IllegalArgumentException("Cannot divide by zero (0).");
+        }
+        return dividend % divisor;
+    }
+ 
+}
+```
+
+Trong method `saltKey` tạo ra với mục đích tạo salt key cho các user id đầu vào sử dụng làm row key để lưu trữ trong các DB ví dụ như HBase. Để kiểm tra method này hoạt động như thế nào, ta cần kiểm tra trường hợp chia cho 0, chia cho các số khác xem phân bố kết quả thu được như thế nào. Test case của class này được viết như sau:
+- Tạo một class đặt tên MathUtilTest bên trong thư mục test của project
+- Bên trong class này, ta sẽ viết các test case sử dụng annotation `@Test` để kiểm tra các trường hợp
+
+```
+public class MathUtilTest {
+ 
+    @Test
+    public void buildSaltKey() {
+        int trueSalt = 1;  // expected result
+        int saltKey = MathUtil.saltKey(7, 2);
+        Assert.assertEquals(trueSalt, actual);
+    }
+ 
+}
+```
+
+- Trong các IDE ví dụ như Intellij, việc unit test được tích hợp sẵn bên trong, sau khi viết test case, ta chỉ cần nhấn nút run như hình để kiểm tra kết quả (báo lỗi hoặc thành công) theo từng method hoặc toàn bộ class test
+
+Ở trên ta kiểm tra trường hợp build salt key xem kết quả tạo ra của method có đúng với kết quả ta cần không. Một ví dụ khác để kiểm tra phân phối của key, ta có thể truyền vào một dãy các user id từ ngoài vào để kiểm tra salt key thu được có đáp ứng yêu cầu hay không.
+
+# Unit test with python
+
+Để viết unit test trong python ta có nhiều thư viện có thể sử dụng và được tích hợp sẵn bên trong python. Ở đây ta có thể sử dụng pytest hoặc unittest. Trong ví dụ sau là các sử dụng unittest:
+
+- Giả sử ta cũng có một hàm gọi là `salt_key` được viết bằng python với mục đích giống như trên. Lưu ý cách đặt tên khi tạo class test.
+
+```math_utils.py
+class MathUtils:
+
+    def __init__(self):
+        ...
+
+    @staticmethod
+    def salt_key(dividend: int, divisor: int):
+        return dividend % divisor
+```
+
+Bây giờ ta viết file test, nếu kết quả không đúng sẽ in ra màn hình `Failed!`
+
+```test_salt_key.py
+import unittest
+
+
+class TestSaltKey(unittest.TestCase):
+
+    def runTest(self):
+        self.assertEqual(MathUtils.salt_key(2, 3), 2, "Failed!")
+
+```
+
+Sau khi chạy file test kết quả thông báo thành công trên màn hình như sau:
+```
+Ran 1 test in 0.004s
+
+OK
+Launching unittests with arguments python -m unittest
+```
+
+hoặc có lỗi nếu sửa expected = 4:
+
+```
+Ran 1 test in 0.007s
+
+FAILED (failures=1)
+
+Failed!
+4 != 2
+
+Expected :2
+Actual   :4
+<Click to see difference>
+
+```
+
+Trên đây chỉ là các cách đơn giản để viết unittest trong java hoặc python để có thể áp dụng được vào các trường hợp hay gặp trong thực tế. Ngoài ra, khi thực hiện test với class, method phức tạp hơn, có nhiều phụ thuộc repository, object khác thì sẽ cần sử dụng đến các chức năng khác của framework hỗ trợ để tạo các object giả (mock) giúp code có thể test được.
+
+Tài liệu tham khảo:
+- https://www.baeldung.com/junit
+- https://www.baeldung.com/mockito-series
+- https://machinelearningmastery.com/a-gentle-introduction-to-unit-testing-in-python/
