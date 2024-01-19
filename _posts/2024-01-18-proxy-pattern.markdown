@@ -1,7 +1,7 @@
 ---
 title: "Proxy pattern"
 layout: post
-date: 2024-01-19 22:03
+date: 2024-01-18 22:03
 image: /assets/images/markdown.jpg
 headerImage: false
 tag:
