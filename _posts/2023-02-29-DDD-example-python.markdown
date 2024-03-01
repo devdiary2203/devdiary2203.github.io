@@ -121,8 +121,8 @@ voucher_service = VoucherService(voucher_repo, third_party_service)
 async def create_voucher(title: str, start_date: str, end_date: str, initial_bid: Money):
     voucher = Voucher(title, start_date, end_date, initial_bid)
     await voucher_service.create_voucher(voucher)
-    # save auction to the repository
-    return {"message": "Auction created successfully!", "voucher": voucher.__dict__}
+    # save voucher to the repository
+    return {"message": "Voucher created successfully!", "voucher": voucher.__dict__}
 
 
 # Start application using unicorn
