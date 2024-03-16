@@ -1,7 +1,7 @@
 ---
 title: "Data science pipeline"
 layout: post
-date: 2024-03-16 22:03
+date: 2024-03-15 22:03
 image: /assets/images/markdown.jpg
 headerImage: false
 tag:
@@ -37,7 +37,7 @@ Kedro là một opensource framework hỗ trợ xây dựng pipeline cho DS, gi�
 - Documentation: Code được hỗ trợ bổ sung documentation tương ứng dễ đọc dễ hiểu.
 - Seamless packagling: Các project tạo bảng kedro có khả năng tích hợp với các công cụ khác để triển khai như airflow, docker.
 
-## First project
+# First project
 Kedro cung cấp cách cài đặt dưới dạng cài thư viện của python. Trước khi cài đặt kedro, ta cần đảm bảo cài sẵn git, python trên máy để tích hợp được kedro.
 - Bước 1: Cài đặt môi trường ảo
 Đầu tiên ta cần cài môi trường ảo python dùng cho project của mình. Có thể sử dụng anaconda, pipvenv,... Ở đây ta sử dụng anaconda để tạo một môi trường ảo (trong windows cần mở của số *Anaconda Powershell Prompt*)
