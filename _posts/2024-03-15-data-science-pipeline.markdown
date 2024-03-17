@@ -16,7 +16,7 @@ description: Nội dung như title
 # Data science pipeline
 Data science pipeline có thể được hiểu là luồng liên kết nhiều thành phần khác nhau, data được vận chuyển qua từng bước để tạo thành một quy trình xử lý từ đầu đến cuối. Một pipeline cơ bản có thể được tổ chức gồm các bước sau:
 
-![Data science pipeline](/assets/images/kedro-new-pipeline.png)
+![Data science pipeline](/assets/images/data-science-pipeline.png)
 
 - Data retrieval and ingestion: Data là thành phần quan trọng nhất của các project. Bước đầu tiên trong pipeline sẽ thu thập dữ liệu từ các nguồn khác nhau để đưa vào project. Dữ liệu cần được nhận dạng từ các nguồn, kiểu dữ liệu là gì, thông tin cần lấy, lưu trữ tập trung dữ liệu thu thập được vào một kho tập trung để gửi đến bước tiếp theo trong pipeline.
 - Data preparation: Để mô hình đạt được độ chính xác, dữ liệu cần phải được xử lý. Bước chuẩn bị dữ liệu bao gồm việc áp dụng các kĩ thuật như classification, cleaning, transformation, feature selection và feature engineering.
