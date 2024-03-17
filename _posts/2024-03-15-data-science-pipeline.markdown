@@ -47,7 +47,7 @@ companies:
 Ví dụ trên lưu thông tin của dữ liệu companies với các tham số để project có thể đọc dữ liệu này bao gồm:
 - type: kiểu dữ liệu là csv. Kedro hỗ trợ config các kiểu dữ liệu xử lý bằng thư viện pandas hoặc matplotlib.
 - filepath: đường dẫn đến folder chứa dữ liệu
-- Ngoài ra còn một số các tham số khác như versioned, load_args, save_args, file_format,... tùy theo yêu cầu, xem chi tiết tại [Link kedro data catalog] (https://docs.kedro.org/en/stable/data/data_catalog_yaml_examples.html)
+- Ngoài ra còn một số các tham số khác như versioned, load_args, save_args, file_format,... tùy theo yêu cầu, xem chi tiết tại https://docs.kedro.org/en/stable/data/data_catalog_yaml_examples.html
 
 ## Node and pipeline
 Khi sử dụng kedro có 2 khái niệm cần nắm được để xây dựng project là **node** và **pipeline**
@@ -82,7 +82,7 @@ variance_pipeline = pipeline(
 )
 ```
 
-Tham khảo chi tiết: [https://docs.kedro.org/en/stable/nodes_and_pipelines/index.html] (https://docs.kedro.org/en/stable/nodes_and_pipelines/index.html)
+Tham khảo chi tiết: https://docs.kedro.org/en/stable/nodes_and_pipelines/index.html
 
 ## Setup
 Kedro cung cấp cách cài đặt dưới dạng cài thư viện của python. Trước khi cài đặt kedro, ta cần đảm bảo cài sẵn git, python trên máy để tích hợp được kedro.
