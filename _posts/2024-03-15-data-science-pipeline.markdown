@@ -227,8 +227,119 @@ kedro pipeline create pipeline_name
 Lúc này, bên trong thư mục pipelines một thư mục tên là model_evaluation được tạo tương ứng với pipeline.
 ![Kedro create pipeline](/assets/images/kedro-new-pipeline.png)
 
+## Bước 4: Tạo data engineer pipeline
+Bước tiếp theo, ta cần xây dựng data engineer pipeline với mục đích biến dữ liệu raw thành dữ liệu có thể đưa vào model training ở bước tiếp theo. Pipeline này gồm 3 phần:
+- Merge các file nhỏ thành một file data lớn
+- Xử lý file data vừa tạo, chia dữ liệu thành phần dữ liệu cần dự đoán và dữ liệu dùng để training model
+- Chia dữ liệu training thành 2 tập train và test theo tỉ lệ 80:20
+
+Mỗi phần trong pipeline được viết thành 1 hàm, tương ứng với một node như sau:
+```python
+from typing import Any, Callable, Dict, List
+from datetime import timedelta, datetime
+
+import pandas as pd
 
 
+def merge_data(partitioned_input: Dict[str, Callable[[], Any]]) -> pd.DataFrame:
+    """
+    Merge raw datasets into an intermediate merged dataset
+
+    Args:
+        partitioned_input:
+
+    Returns:
+
+    """
+    merged_df = pd.DataFrame()
+    for partition_id, partition_load_func in sorted(partitioned_input.items()):
+        partition_data = partition_load_func()
+        merged_df = pd.concat([merged_df, partition_data], ignore_index=True, sort=True)
+    return merged_df
+
+
+def process_data(merged_df: pd.DataFrame, predictor_cols: List) -> pd.DataFrame:
+    """
+    Process merged dataset by keeping only the predictor columns and creating a new date column
+    for subsequent train-test split
+
+    Args:
+        merged_df:
+        predictor_cols: list predictor columns
+
+    Returns:
+
+    """
+    merged_df['TX_DATE'] = pd.to_datetime(merged_df['TX_DATETIME'], infer_datetime_format=True)
+    merged_df['TX_DATE'] = merged_df['TX_DATETIME'].dt.date
+    processed_df = merged_df[predictor_cols]
+    return processed_df
+
+
+def train_test_split(processed_df: pd.DataFrame):
+    """
+    Perform chronological 80/20 train-test split and drop unnecessary column
+
+    Args:
+        processed_df:
+
+    Returns:
+
+    """
+    processed_df['TX_DATE'] = pd.to_datetime(processed_df['TX_DATE'], infer_datetime_format=True)
+    split_date = processed_df['TX_DATE'].min() + timedelta(days=7*8)
+    train_df = processed_df.loc[processed_df['TX_DATE'] <= split_date]
+    test_df = processed_df.loc[processed_df['TX_DATE'] > split_date]
+    train_df.drop(columns=['TX_DATE'], inplace=True)
+    test_df.drop(columns=['TX_DATE'], inplace=True)
+    
+    if 'TX_FRAUD' in train_df.columns:
+        train_df = train_df.drop(columns=['TX_FRAUD'])
+    if 'TX_FRAUD' in test_df.columns:
+        test_labels = test_df[['TX_FRAUD']]
+        test_df = test_df.drop(columns=['TX_FRAUD'])
+    else:
+        test_labels = pd.DataFrame()    # empty dataframe if no test label
+    return train_df, test_df, test_labels
+```
+
+Sau khi tạo các node, ta sẽ kết hợp các node lại thành data engineering pipeline cho việc xử lý dữ liệu:
+```python
+from kedro.pipeline import Pipeline, node, pipeline
+
+from .nodes import merge_data, process_data, train_test_split
+
+
+def create_pipeline(**kwargs) -> Pipeline:
+    return pipeline(
+        [
+            node(
+                func=merge_data,
+                inputs="raw_daily_data",
+                outputs="merged_data",
+                name="node_merge_raw_daily_data",
+            ),
+            node(
+                func=process_data,
+                inputs=["merged_data", "params:predictor_cols"],
+                outputs="processed_data",
+                name="node_process_data",
+            ),
+            node(
+                func=train_test_split,
+                inputs="processed_data",
+                outputs=["train_data", "test_data", "test_labels"],
+                name="node_train_test_split"
+            ),
+        ]
+    )
+```
+
+Mỗi node được tạo bằng cách sử dụng hàm node trong thư viện kedro.pipeline. Các tham số truyền vào hàm node bao gồm:
+- func: 
+- inputs:
+- outputs:
+- name:
 
 
 
