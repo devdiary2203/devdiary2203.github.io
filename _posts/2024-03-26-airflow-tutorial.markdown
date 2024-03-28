@@ -198,14 +198,77 @@ Operator là một template khai báo sẵn cấu hình của một task, operat
 ### BashOperator
 - Tạo task thực hiện một script bash
 
+```python
+# The start of the data interval as YYYY-MM-DD
+date = "{{ ds }}"
+t = BashOperator(
+    task_id="test_env",
+    bash_command="/tmp/test.sh ",
+    dag=dag,
+    env={"DATA_INTERVAL_START": date},
+)
+```
+
 ### PythonOperator
 - Tạo task sử dụng hàm python với các tham số bên trong
+
+```python
+class MyDataReader:
+    template_fields: Sequence[str] = ("path",)
+
+    def __init__(self, my_path):
+        self.path = my_path
+
+    # [additional code here...]
+
+
+t = PythonOperator(
+    task_id="transform_data",
+    python_callable=transform_data,
+    op_args=[MyDataReader("/tmp/{{ ds }}/my_file")],
+    dag=dag,
+)
+```
 
 ### EmailOperator
 - Tạo task gửi email
 
 ### Decorator @task
 - Sử dụng *@task* decorator để tự tạo một operator bằng các viết hàm python và decorator
+```python
+dag = DAG(
+    dag_id="example_template_as_python_object",
+    schedule=None,
+    start_date=pendulum.datetime(2021, 1, 1, tz="UTC"),
+    catchup=False,
+    render_template_as_native_obj=True,
+)
+
+
+@task(task_id="extract")
+def extract():
+    data_string = '{"1001": 301.27, "1002": 433.21, "1003": 502.22}'
+    return json.loads(data_string)
+
+
+@task(task_id="transform")
+def transform(order_data):
+    print(type(order_data))
+    for value in order_data.values():
+        total_order_value += value
+    return {"total_order_value": total_order_value}
+
+
+extract_task = extract()
+
+transform_task = PythonOperator(
+    task_id="transform",
+    op_kwargs={"order_data": "{{ti.xcom_pull('extract')}}"},
+    python_callable=transform,
+)
+
+extract_task >> transform_task
+```
 
 ## Sensor
 Sensor là một loại operator đặc biệt, thực hiện một task khi có một sự kiện nào đó xảy ra. Sự kiện này dựa vào một thời gian cụ thể, một file được tạo hoặc một event từ bên ngoài. Có 2 trạng thái của sensor:
