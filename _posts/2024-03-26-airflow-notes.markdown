@@ -1,5 +1,5 @@
 ---
-title: "Airflow tutorial"
+title: "Airflow notes"
 layout: post
 date: 2024-03-26 22:03
 image: /assets/images/markdown.jpg
