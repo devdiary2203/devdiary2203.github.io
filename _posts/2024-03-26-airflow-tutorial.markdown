@@ -235,6 +235,7 @@ t = PythonOperator(
 
 ### Decorator @task
 - Sử dụng *@task* decorator để tự tạo một operator bằng các viết hàm python và decorator
+
 ```python
 dag = DAG(
     dag_id="example_template_as_python_object",
