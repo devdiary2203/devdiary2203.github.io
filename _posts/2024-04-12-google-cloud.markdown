@@ -14,6 +14,7 @@ description: Nội dung như title
 ---
 
 Đây là những tìm hiểu cơ bản về google cloud của mình
+https://cloud.google.com/storage/docs/storage-classes#archive
 
 # Compute 
 Trong kiến trúc của google cloud, tầng ở giữa bao gồm 2 thành phần là compute và storage. Khi data càng lớn, thì lượng tài nguyên tính toán cần sử dụng càng lớn. Google cung cấp một loạt các dịch vụ tính toán bao gồm:
@@ -61,5 +62,13 @@ Phân loại các ứng dụng của google phát triển cho big data và ml ha
 - Vertex AI Workbench
 - AutoML
 - Tensorflow
+
+# Google Cloud solution for streaming data
+Có 4 vấn đề liên quan đến dữ liệu cần xử lý trong pipeline data engineering:
+- Variety
+- Volumne
+- Velocity
+- Veracity
+
 
 
