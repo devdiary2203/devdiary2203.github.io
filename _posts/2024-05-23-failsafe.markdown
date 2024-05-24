@@ -1,0 +1,97 @@
+---
+title: "Failsafe"
+layout: post
+date: 2024-05-08 22:03
+image: /assets/images/markdown.jpg
+headerImage: false
+tag:
+- software engineer
+- backend engineer
+- java
+category: blog
+author: devdiary
+description: Nội dung như title
+---
+
+Failsafe là một thư viện trong java được sử dụng để xử lý các trường hợp lỗi phát sinh trong code như gọi API của bên thứ 3 bị lỗi hoặc các exception khác có thể xảy ra trong quá trình chạy.
+
+## Dependencies
+Để sử dụng thư viện failsafe, có thể sử dụng thư viện sau thêm vào file pom.xml nếu sử dụng maven.
+
+```xml
+<dependency>
+    <groupId>dev.failsafe</groupId>
+    <artifactId>failsafe</artifactId>
+    <version>3.3.2</version>
+</dependency>
+```
+
+## Sử dụng Failsafe
+Failsafe cung cấp một khái niệm gọi là policy, mỗi policy được đặt ra để xác định định một action xảy ra trong chương trình có phải là lỗi hay không và cách xử lý lỗi đó như thế nào.
+
+### Xác định failure
+Mặc định, policy của failsafe sẽ coi một ngoại lệ xảy ra là failure và xử lý. Tuy nhiên có thể tự cấu hình các điều kiện khác hoặc exception cụ thể là policy để xử lý khi điều kiện đó xảy ra trong code.
+
+```java
+// Xử lý exception với policy IOException
+policy
+  .handle(IOException.class)
+  .handleIf(e -> e instanceof IOException)
+```
+
+## Một số policy tiêu chuẩn
+Thư viện failsafe cung cấp một số policy tiêu chuẩn để sử dụng sẵn
+### Fallback policy
+Policy này trả về kết quả mới khi xảy ra lỗi. Ví dụ trả về 0 nếu có lỗi xảy ra như sau:
+```java
+Fallback<Integer> policy = Fallback.builder(0).build();
+```
+
+### Retry policy
+Policy này thay vì trả về kết quả mặc định sẽ thử lại action vừa xảy ra lỗi, có thể cấu hình chọn việc thử lại tối đa bao nhiêu lần như sau:
+```java
+RetryPolicy<Object> retryPolicy = RetryPolicy.builder()
+  .withMaxAttempts(5)
+  .build();
+```
+
+Thử lại sau một khoảng thời gian:
+```java
+RetryPolicy<Object> retryPolicy = RetryPolicy.builder()
+  .withDelay(Duration.ofMillis(250))
+  .build();
+```
+
+### Timeout policy
+Bắt buộc action hiện tại fail trong trường hợp thời gian xử lý lớn hơn một khoảng thời gian, ví dụ:
+
+```java
+Timeout<Object> timeout = Timeout.builder(Duration.ofMillis(100))
+  .withInterrupt()
+  .build();
+```
+
+Kết hợp timeout policy và retry policy:
+```java
+Timeout<Object> timeoutPolicy = Timeout.builder(Duration.ofSeconds(10))
+  .withInterrupt()
+  .build();
+RetryPolicy<Object> retryPolicy = RetryPolicy.builder()
+  .withMaxAttempts(20)
+  .withBackoff(Duration.ofMillis(100), Duration.ofMillis(2000))
+  .build();
+
+Failsafe.with(timeoutPolicy, retryPolicy).get(this::perform);
+```
+
+### Bulkhead policy
+Trường hợp thay vì đợi action xảy ra mới xử lý các khả năng lỗi có thể xảy ra như timeout, retry, fallback thì có thể ngăn chặn trước việc thực hiện action bằng cách giới hạn số lần có thể thực hiện action sử dụng bulkhead policy như sau:
+
+```java
+Bulkhead<Object> bulkhead = Bulkhead.builder(10)
+  .withMaxWaitTime(Duration.ofMillis(1000))
+  .build();
+```
+
+Ngoài ra còn một số policy khác phức tạp hơn sử dụng trong nhiều trường hợp khác như rate limiter policy, circuit breaker policy.
+
