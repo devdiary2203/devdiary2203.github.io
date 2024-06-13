@@ -18,7 +18,7 @@ Biến transient trong java là một biến mà giá trị của nó sẽ khôn
 
 Một biến transient (không được persist) được sử dụng chủ yếu với mục đích bảo mật như chứa giá trị password, token sẽ không bị lưu hay di chuyển bất kì đâu trong chương trình. Một ví dụ khác có thể không cần serialized và gán thuộc tính đó bằng transient là trường hợp một biến được tính bằng giá trị các biến khác (chỉ lưu giá trị tạm thời). Class hình chữ nhật có 3 thuộc tính là dài, rộng, chu vi thì chu vi có thể tính được từ thuộc tính dài và rộng, do đó không cần thiết phải serialization thuộc tính chu vi.
 
-![Serialization and Deserialization](serialization-de.png)
+![Serialization and Deserialization](/assets/images/serialization-de.png)
 
 # Ví dụ biến transient trong java
 
