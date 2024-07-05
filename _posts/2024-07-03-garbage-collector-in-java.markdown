@@ -1,7 +1,7 @@
 ---
 title: "Garbage collector in java"
 layout: post
-date: 2024-06-27 22:03
+date: 2024-07-03 22:03
 image: /assets/images/markdown.jpg
 headerImage: false
 tag:
