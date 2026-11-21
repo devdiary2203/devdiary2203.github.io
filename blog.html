@@ -1,31 +1,84 @@
 ---
-# blog page must be named index.html and in its own folder to support pagination
-# https://jekyllrb.com/docs/pagination/
 layout: page
 title: Blog
-pagination:
-  enabled: true
 ---
-<section class="list">
-	{% if site.posts.size == 0 %}
-		<p class="text-center">Nothing published yet!</p>
-	{% elsif site.pagination.enabled %}
-		{% for post in paginator.posts %}
-			{% if post.category == 'blog' %}
-				{% if post.hidden != true %}
-					{% include blog-post.html %}
-				{% endif %}
-			{% endif %}
-		{% endfor %}
+{% assign posts = site.posts | where: "category", "blog" | where_exp: "p", "p.hidden != true" %}
+{% comment %} Tag chips: bỏ tag quá chung, chỉ lấy tag có từ 2 bài trở lên, sắp xếp theo số bài giảm dần {% endcomment %}
+{% capture tag_rows %}{% for t in site.tags %}{% assign n = t[1].size %}{% if n >= 2 and t[0] != "software engineer" %}{{ n | plus: 1000 }}|{{ t[0] }}
+{% endif %}{% endfor %}{% endcapture %}
+{% assign tag_rows = tag_rows | strip | newline_to_br | split: "<br />" | sort | reverse %}
 
-		{% include pagination.html%}
-	{% else %}
-		{% for post in site.posts %}
-			{% if post.category == 'blog' %}
-				{% if post.hidden != true %}
-					{% include blog-post.html %}
+<section class="blog-section">
+	<div class="toolbar">
+		<input id="post-search" class="search" type="search" placeholder="Tìm bài viết..." aria-label="Tìm bài viết" />
+		<div class="filters" id="post-filters">
+			<button type="button" class="chip active" data-tag="">Tất cả<em>{{ posts.size }}</em></button>
+			{% for row in tag_rows %}
+				{% assign parts = row | strip | split: "|" %}
+				{% if parts[1] %}
+					<button type="button" class="chip" data-tag="{{ parts[1] | downcase }}">{{ parts[1] }}<em>{{ parts[0] | minus: 1000 }}</em></button>
 				{% endif %}
-			{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+
+	<p class="result-count" id="result-count"></p>
+
+	<div class="card-grid" id="post-grid">
+		{% for post in posts %}
+			<a class="post-card" href="{{ site.url }}{{ post.url }}"
+			   data-title="{{ post.title | downcase | escape }}"
+			   data-tags="{{ post.tag | join: '|' | downcase | escape }}">
+				<div class="meta">
+					<time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: "%d/%m/%Y" }}</time>
+				</div>
+				<h3 class="title">{{ post.title }}</h3>
+				<p class="excerpt">{{ post.excerpt | strip_html | strip_newlines | truncate: 120 }}</p>
+				<div class="tags">
+					{% assign shown = 0 %}
+					{% for t in post.tag %}{% if t != "software engineer" and shown < 3 %}<span>#{{ t }}</span>{% assign shown = shown | plus: 1 %}{% endif %}{% endfor %}
+				</div>
+			</a>
 		{% endfor %}
-	{% endif %}
+	</div>
+
+	<p class="empty" id="empty" hidden>Không có bài viết nào phù hợp.</p>
 </section>
+
+<script>
+(function () {
+	var cards = Array.prototype.slice.call(document.querySelectorAll('#post-grid .post-card'));
+	var chips = Array.prototype.slice.call(document.querySelectorAll('#post-filters .chip'));
+	var search = document.getElementById('post-search');
+	var count = document.getElementById('result-count');
+	var empty = document.getElementById('empty');
+	var activeTag = '';
+
+	function apply() {
+		var q = search.value.trim().toLowerCase();
+		var shown = 0;
+		cards.forEach(function (c) {
+			var tags = c.dataset.tags.split('|');
+			var okTag = !activeTag || tags.indexOf(activeTag) !== -1;
+			var okQ = !q || c.dataset.title.indexOf(q) !== -1;
+			c.hidden = !(okTag && okQ);
+			if (!c.hidden) shown++;
+		});
+		count.textContent = shown + ' bài viết';
+		empty.hidden = shown !== 0;
+	}
+
+	function setTag(tag) {
+		activeTag = tag;
+		chips.forEach(function (b) { b.classList.toggle('active', b.dataset.tag === tag); });
+		try { history.replaceState(null, '', tag ? '#' + encodeURIComponent(tag) : location.pathname); } catch (e) {}
+		apply();
+	}
+
+	chips.forEach(function (b) { b.addEventListener('click', function () { setTag(b.dataset.tag); }); });
+	search.addEventListener('input', apply);
+
+	var initial = decodeURIComponent(location.hash.slice(1)).toLowerCase();
+	if (initial && chips.some(function (b) { return b.dataset.tag === initial; })) setTag(initial); else apply();
+})();
+</script>
