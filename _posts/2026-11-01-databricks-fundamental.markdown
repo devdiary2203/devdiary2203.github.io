@@ -111,6 +111,8 @@ resources:
       comment: "Landing zone cho file thô"
 ```
 
+> Lưu ý: ở `mode: development`, bundle tự thêm prefix (dạng `dev_<user>_`) vào tên các resource không phải file/notebook như job, schema, volume. Vì vậy đừng hard-code đường dẫn `/Volumes/dev/sales/...` trong job, hãy tham chiếu `${resources.schemas.sales.name}` như ví dụ bên dưới. Catalog `dev`/`prod` ở đây giả định đã tồn tại sẵn.
+
 Cách làm này giúp tên catalog tự đổi theo target (`dev`, `prod`) và quyền truy cập được version control cùng với code.
 
 ## Làm việc với Unity Catalog bằng SDK
@@ -181,7 +183,7 @@ Databricks hỗ trợ **Python, SQL, Scala và R** trong notebook, Java qua JAR 
 resources:
   jobs:
     daily_sales:
-      name: "[${bundle.target}] daily_sales"
+      name: daily_sales   # mode development tự thêm prefix [dev <user>]
 
       parameters:
         - name: catalog
@@ -192,7 +194,7 @@ resources:
           notebook_task:
             notebook_path: ../src/ingest.py
             base_parameters:
-              source_path: /Volumes/${bundle.target}/sales/raw_files/orders/
+              source_path: /Volumes/${bundle.target}/${resources.schemas.sales.name}/${resources.volumes.raw_files.name}/orders/
 
         - task_key: aggregate
           depends_on:
@@ -257,8 +259,10 @@ Có 4 loại compute chính:
 - **SQL warehouse**: compute dành cho SQL query, dashboard và BI. Mặc định là serverless, hỗ trợ concurrency cao, auto scaling, auto start/stop và cho phép chỉnh cluster sizing.
 
 Với serverless job còn có hai performance mode:
-- **Standard**: ưu tiên cost, thời gian khởi động lâu hơn, phù hợp workflow không gấp.
-- **Performance optimized**: khởi động và thực thi nhanh hơn, dùng khi cần SLA chặt.
+- **Standard**: ưu tiên cost, thời gian khởi động lâu hơn (thường vài phút, khoảng 4 đến 6 phút), phù hợp workflow không gấp.
+- **Performance optimized** (mặc định nếu không khai báo): khởi động và thực thi nhanh hơn (dưới 1 phút), dùng khi có người hoặc hệ thống downstream đang chờ kết quả.
+
+Hai mode này chỉ áp dụng cho task chạy trên serverless, không áp dụng cho classic compute hay SQL warehouse. Trong bundle, khai báo bằng `performance_target: STANDARD` hoặc `PERFORMANCE_OPTIMIZED` ngay trên job.
 
 ## Chọn compute cho từng task
 
@@ -278,9 +282,6 @@ resources:
   jobs:
     mixed_compute:
       name: mixed_compute
-
-      # Standard/optimized chỉ áp dụng cho serverless job
-      performance_target: STANDARD
 
       job_clusters:
         - job_cluster_key: shared_etl
@@ -303,6 +304,11 @@ resources:
           job_cluster_key: shared_etl          # dùng lại cluster, không phải start lại
           notebook_task:
             notebook_path: ../src/transform.py
+
+        - task_key: ml_features               # không khai báo cluster => chạy serverless
+          depends_on: [{ task_key: transform }]
+          notebook_task:
+            notebook_path: ../src/ml_features.py
 
         - task_key: aggregate
           depends_on: [{ task_key: transform }]
