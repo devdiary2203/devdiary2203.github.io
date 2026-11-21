@@ -5,12 +5,126 @@
         text-align: center
         margin-bottom: 6rem
 
-.about
-    img
-        width: 220px
-        height: 220px
-        max-width: 60%
-        object-fit: cover
-        border-radius: 50%
-        margin: 0 auto
+.about-page
+    text-align: center
+
+    .about-hero
+        margin-bottom: 5rem
+
+        .avatar
+            width: 180px
+            height: 180px
+            object-fit: cover
+            border-radius: 50%
+            display: block
+            margin: 0 auto 2rem
+            border: 4px solid #fff
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15)
+
+        .name
+            margin-bottom: 0.4rem
+
+        .role
+            color: $delta
+            font-weight: 400
+            font-size: 1.6rem
+            margin-bottom: 1.6rem
+
+        .intro
+            max-width: 520px
+            margin: 0 auto 2.4rem
+
+        .actions
+            display: flex
+            justify-content: center
+            gap: 1rem
+            flex-wrap: wrap
+
+        .btn
+            display: inline-block
+            padding: 0.8rem 2rem
+            border: 1px solid $delta
+            border-radius: 999px
+            color: $delta
+            text-decoration: none
+            font-size: 1.4rem
+            transition: background 0.2s, color 0.2s
+
+            &:hover,
+            &.primary
+                background: $delta
+                color: #fff
+
+            &.primary:hover
+                opacity: 0.85
+
+    .about-section
+        margin-bottom: 4rem
+
+        h2
+            margin-bottom: 2rem
+            padding-bottom: 1rem
+            position: relative
+
+            &:after
+                content: ""
+                display: block
+                width: 40px
+                height: 3px
+                background: $delta
+                margin: 1rem auto 0
+                border-radius: 2px
+
+    .topic-grid
+        display: grid
+        grid-template-columns: repeat(2, 1fr)
+        gap: 1.6rem
+        text-align: left
+
+        @media #{$below}
+            grid-template-columns: 1fr
+
+    .topic,
+    .project-card
         display: block
+        padding: 1.6rem 2rem
+        border: 1px solid $epsilon
+        border-radius: 8px
+        background: #fff
+        text-decoration: none
+        transition: box-shadow 0.2s, transform 0.2s
+
+        strong
+            display: block
+            color: $beta
+            font-size: 1.6rem
+            margin-bottom: 0.4rem
+
+        span
+            color: $alpha
+            font-weight: 300
+            font-size: 1.4rem
+            line-height: 1.6
+
+    .project-card
+        text-align: left
+
+        &:hover
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1)
+            transform: translateY(-2px)
+
+    .chips
+        list-style: none
+        padding: 0
+        display: flex
+        flex-wrap: wrap
+        justify-content: center
+        gap: 0.8rem
+
+        li
+            padding: 0.4rem 1.4rem
+            border-radius: 999px
+            background: $epsilon
+            color: $beta
+            font-size: 1.4rem
+            line-height: 2.2rem
