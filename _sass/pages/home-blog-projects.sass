@@ -96,10 +96,13 @@
 
 .card-grid
     display: grid
-    grid-template-columns: repeat(2, 1fr)
+    grid-template-columns: repeat(3, 1fr)
     gap: 1.6rem
 
     @media #{$below}
+        grid-template-columns: repeat(2, 1fr)
+
+    @media only screen and (max-width: 560px)
         grid-template-columns: 1fr
 
 .post-card
@@ -110,12 +113,31 @@
     border-radius: 10px
     background: #fff
     text-decoration: none
-    transition: box-shadow .2s, transform .2s, border-color .2s
+    position: relative
+    overflow: hidden
+    isolation: isolate
+    transition: box-shadow .25s, transform .25s, border-color .25s
+
+    // lưới mờ, mờ dần từ góc trên phải xuống dưới
+    &:before
+        content: ""
+        position: absolute
+        inset: 0
+        z-index: -1
+        background-image: linear-gradient(rgba(75, 0, 130, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(75, 0, 130, .07) 1px, transparent 1px)
+        background-size: 18px 18px
+        -webkit-mask-image: linear-gradient(200deg, #000 0%, transparent 65%)
+        mask-image: linear-gradient(200deg, #000 0%, transparent 65%)
+        opacity: .7
+        transition: opacity .25s, background-size .25s
+
+    &:hover:before
+        opacity: 1
 
     &:hover
         border-color: $delta
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08)
-        transform: translateY(-2px)
+        transform: translateY(-6px)
+        box-shadow: 0 14px 32px rgba(75, 0, 130, 0.15)
 
     .meta
         display: flex
