@@ -72,3 +72,81 @@
         position: relative
         top: -4px
         margin-right: 10px
+
+.home-section
+    margin-top: 5rem
+    padding-top: 3rem
+    border-top: 1px solid $epsilon
+
+    .section-head
+        display: flex
+        justify-content: space-between
+        align-items: baseline
+        margin-bottom: 2rem
+
+        h2
+            margin: 0
+
+        .more
+            font-size: 1.4rem
+            text-decoration: none
+
+            &:hover
+                text-decoration: underline
+
+    .card-grid
+        display: grid
+        grid-template-columns: repeat(2, 1fr)
+        gap: 1.6rem
+
+        @media #{$below}
+            grid-template-columns: 1fr
+
+    .post-card
+        display: flex
+        flex-direction: column
+        padding: 2rem
+        border: 1px solid $epsilon
+        border-radius: 10px
+        background: #fff
+        text-decoration: none
+        transition: box-shadow .2s, transform .2s, border-color .2s
+
+        &:hover
+            border-color: $delta
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08)
+            transform: translateY(-2px)
+
+        .meta
+            display: flex
+            justify-content: space-between
+            align-items: center
+            font-size: 1.2rem
+            color: $gama
+            text-transform: uppercase
+            letter-spacing: 1px
+            margin-bottom: 1rem
+
+        .tag
+            padding: 2px 10px
+            border-radius: 999px
+            background: $epsilon
+            color: $alpha
+            text-transform: none
+            letter-spacing: 0
+
+        .title
+            margin: 0 0 1rem
+            font-size: 1.8rem
+            line-height: 1.4
+            color: $beta
+
+        &:hover .title
+            color: $delta
+
+        .excerpt
+            margin: 0
+            font-size: 1.4rem
+            line-height: 1.6
+            color: $alpha
+            font-weight: 300

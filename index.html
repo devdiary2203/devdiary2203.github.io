@@ -2,3 +2,24 @@
 layout: page
 title: Home
 ---
+{% assign latest = site.posts | where: "category", "blog" | where_exp: "p", "p.hidden != true" %}
+
+<section class="home-section">
+	<div class="section-head">
+		<h2>Bài viết mới nhất</h2>
+		<a class="more" href="{{ site.url }}/blog">Xem tất cả &rarr;</a>
+	</div>
+
+	<div class="card-grid">
+		{% for post in latest limit: 6 %}
+			<a class="post-card" href="{{ site.url }}{{ post.url }}">
+				<div class="meta">
+					<time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: "%d/%m/%Y" }}</time>
+					{% if post.tag %}<span class="tag">{{ post.tag | last }}</span>{% endif %}
+				</div>
+				<h3 class="title">{{ post.title }}</h3>
+				<p class="excerpt">{{ post.excerpt | strip_html | strip_newlines | truncate: 130 }}</p>
+			</a>
+		{% endfor %}
+	</div>
+</section>

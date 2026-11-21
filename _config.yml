@@ -8,7 +8,7 @@ description: A blog about technology and stuff related
 # if it's an external image, update below for true
 # better with square images
 external-image: false
-picture: assets/images/me.jpeg
+picture: assets/images/avatar.jpg
 
 # If you want to include your resume, set to true
 # and specify source (external or local).
@@ -34,30 +34,35 @@ disqus:
   categories: [blog, project] # only show disqus for posts that have these categories
 
 # if you don't have any of social below, comment the line
-facebook: myfacebook
-twitter: mytwitter
+# facebook: myfacebook
+# twitter: mytwitter
 # instagram: myinstagram
 # pinterest: mypinterest
 # linkedin: mylinkedin
 # youtube: myyoutube
 # spotify: myspotify
-github: mygithub
+github: devdiary2203
 # gitlab: mygitlab
 # lastfm: mylastfm
 # stackoverflow: 7044681/mystackoverflow
 # quora: userquora
 # reddit: username
-medium: medium
+# medium: medium
 # vimeo: myvimeo
 # lanyrd: mylanyrd
 email: dev.diary.io@gmail.com
 
 authors:
+  devdiary:
+    name: Dev Diary
+    bio: Software & Data Engineer. Ghi lại những gì mình học được.
+    external-image: false
+    picture: assets/images/avatar.jpg
   johndoe:
     name: Dev Diary
     bio: A Man who travels the world eating noodles
     external-image: false
-    picture: assets/images/me.jpeg
+    picture: assets/images/avatar.jpg
     twitter: johndoe
   jamesfoster:
     name: James Foster
