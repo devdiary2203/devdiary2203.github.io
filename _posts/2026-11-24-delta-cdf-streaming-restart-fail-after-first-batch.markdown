@@ -1,8 +1,8 @@
 ---
-title: "Delta CDF streaming restart lỗi: checkpoint mới chỉ commit đúng batch 0"
+title: "Delta CDF streaming restart fail after first batch"
 layout: post
-date: 2026-11-25 21:30
-image: /assets/images/markdown.jpg
+date: 2026-11-24 22:30
+image: /assets/images/cdf_dbx_thumb.png
 headerImage: false
 tag:
 - data engineer

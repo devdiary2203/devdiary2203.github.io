@@ -1,3 +1,20 @@
+---
+title: "data pipelines with apache spark declarative pipelines"
+layout: post
+date: 2026-11-24 22:30
+image: /assets/images/markdown.jpg
+headerImage: false
+tag:
+- data engineer
+- databricks
+- spark structured streaming
+- delta lake
+- change data feed
+category: blog
+author: devdiary2203
+description: Hai streaming job y hệt nhau, một job restart ngon lành, một job chết với DELTA_INVALID_CDC_RANGE. Truy ngược lại là một edge case nằm ở bước recover batch 0 của Structured Streaming kết hợp startingVersion = latest.
+---
+
 this post introduces how databricks supports efficient data engineering by combining optimized storage techniques, unified data governance through unity catalog, lakeflow's integrated capabilities for data ingestion, transformation, and orchestration
 
 data engineering platform overview
