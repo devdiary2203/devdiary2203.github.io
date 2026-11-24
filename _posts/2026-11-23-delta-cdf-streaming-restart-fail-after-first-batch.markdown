@@ -270,6 +270,7 @@ Sau khi batch 1 chạy xong, recover sẽ lấy start từ `offsets/0` nên opti
 - [Databricks: Delta table streaming reads and writes](https://docs.databricks.com/aws/en/structured-streaming/delta-lake)
 - [Delta Lake: Specify initial position](https://docs.delta.io/latest/delta-streaming.html#specify-initial-position)
 - [Databricks: Use Delta Lake change data feed](https://docs.databricks.com/aws/en/delta/delta-change-data-feed)
+- [What is Change Data Feed in Databricks?](https://dateonic.com/what-is-change-data-feed-cdf-and-how-databricks-helps-with-its-implementation/)
 
 ## Các case liên quan
 
