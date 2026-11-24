@@ -1,0 +1,68 @@
+table
+    width: 100%
+    margin: 2rem 0 3rem
+    border-collapse: separate
+    border-spacing: 0
+    border: 1px solid $epsilon
+    border-radius: 8px
+    overflow: hidden
+    font-size: 1.4rem
+    line-height: 1.6
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05)
+
+    @media #{$below}
+        display: block
+        overflow-x: auto
+        -webkit-overflow-scrolling: touch
+
+    th,
+    td
+        padding: 10px 16px
+        text-align: left
+        vertical-align: top
+        border-bottom: 1px solid $epsilon
+
+    th
+        background: #f4f1fa
+        color: $beta
+        font-weight: 600
+        font-size: 1.3rem
+        letter-spacing: 0.3px
+        border-bottom: 2px solid $delta
+
+    td
+        color: $alpha
+        font-weight: 300
+
+    tbody tr:nth-child(even) td
+        background: #fafafa
+
+    tbody tr:hover td
+        background: #f4f1fa
+
+    tbody tr:last-child td
+        border-bottom: none
+
+    td:first-child
+        color: $beta
+        font-weight: 400
+
+    code
+        padding: 1px 6px
+        background: #f1eef8
+        color: $beta
+        border-radius: 3px
+        word-break: break-word
+
+pre.mermaid
+    margin: 2rem 0 3rem
+    padding: 1.5rem 1rem
+    text-align: center
+    background: #fff
+    border: 1px solid $epsilon
+    border-radius: 8px
+    overflow-x: auto
+
+    svg
+        max-width: 100%
+        height: auto
