@@ -29,6 +29,7 @@ title: Blog
 			<a class="post-card" href="{{ site.url }}{{ post.url }}"
 			   data-title="{{ post.title | downcase | escape }}"
 			   data-tags="{{ post.tag | join: '|' | downcase | escape }}">
+				{% if post.image and post.image != "/assets/images/markdown.jpg" %}<img class="thumb" src="{{ post.image }}" alt="{{ post.title }}" loading="lazy">{% endif %}
 				<div class="meta">
 					<time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: "%d/%m/%Y" }}</time>
 				</div>

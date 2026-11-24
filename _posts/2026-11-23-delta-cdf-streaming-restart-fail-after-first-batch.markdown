@@ -3,7 +3,7 @@ title: "Delta CDF streaming restart fail after first batch"
 layout: post
 date: 2026-11-23 22:30
 image: /assets/images/cdf_dbx_thumb.png
-headerImage: false
+headerImage: true
 tag:
 - data engineer
 - databricks
